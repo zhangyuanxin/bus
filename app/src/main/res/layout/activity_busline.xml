@@ -10,10 +10,21 @@
         android:paddingBottom="10dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
+        android:orientation="vertical"
         android:paddingTop="10dp">
 
         <TextView
-            android:id="@+id/busline_tv_profile"
+            android:id="@+id/busline_tv_runtime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/busline_tv_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/busline_tv_memo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

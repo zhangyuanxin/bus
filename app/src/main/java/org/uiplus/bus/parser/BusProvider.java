@@ -1,6 +1,7 @@
 package org.uiplus.bus.parser;
 
 import org.jsoup.Jsoup;
+import org.jsoup.helper.StringUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -108,7 +109,9 @@ public class BusProvider {
             }
 
             document.select("table").remove();
-            map.put("profile", document.getElementsByTag("body").text());
+            map.put("runtime", getRuntime(document.getElementsByTag("body").text()));
+            map.put("price", getPrice(document.getElementsByTag("body").text()));
+            map.put("memo", getMemo(document.getElementsByTag("body").text()));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -151,4 +154,54 @@ public class BusProvider {
         return null;
     }
 
+    private String getRuntime(String profile) {
+        String runtime = "";
+
+        try {
+            if (StringUtil.isBlank(profile)) {
+                return runtime;
+            }
+
+            profile = profile.replaceAll("\\s*", "");
+            runtime = profile.substring(profile.indexOf("运行时间："), profile.indexOf("票价："));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return runtime;
+    }
+
+    private String getPrice(String profile) {
+        String price = "";
+
+        try {
+            if (StringUtil.isBlank(profile)) {
+                return price;
+            }
+
+            profile = profile.replaceAll("\\s*", "");
+            price = profile.substring(profile.indexOf("票价："), profile.indexOf("备注："));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return price;
+    }
+
+    private String getMemo(String profile) {
+        String memo = "";
+
+        try {
+            if (StringUtil.isBlank(profile)) {
+                return memo;
+            }
+
+            profile = profile.replaceAll("\\s*", "");
+            memo = profile.substring(profile.indexOf("备注："));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return memo;
+    }
 }

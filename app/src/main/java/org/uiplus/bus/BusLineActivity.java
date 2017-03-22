@@ -22,7 +22,9 @@ import java.util.concurrent.ExecutionException;
 
 public class BusLineActivity extends AppCompatActivity {
 
-    TextView busline_tv_profile;
+    TextView busline_tv_runtime;
+    TextView busline_tv_price;
+    TextView busline_tv_memo;
     ListView busline_lv_stations;
     ArrayAdapter adapter;
 
@@ -31,7 +33,9 @@ public class BusLineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_busline);
 
-        busline_tv_profile = (TextView) findViewById(R.id.busline_tv_profile);
+        busline_tv_runtime = (TextView) findViewById(R.id.busline_tv_runtime);
+        busline_tv_price = (TextView) findViewById(R.id.busline_tv_price);
+        busline_tv_memo = (TextView) findViewById(R.id.busline_tv_memo);
 
         busline_lv_stations = (ListView) findViewById(R.id.busline_lv_stations);
         adapter = new ArrayAdapter<String>(this, R.layout.busline_listview_item, R.id.busline_lv_item_tv_station);
@@ -49,7 +53,9 @@ public class BusLineActivity extends AppCompatActivity {
                     intent.getStringExtra("lineId"));
             Map<String, Object> map = (Map<String, Object>) asyncTask.get();
 
-            busline_tv_profile.setText((String) map.get("profile"));
+            busline_tv_runtime.setText((String) map.get("runtime"));
+            busline_tv_price.setText((String) map.get("price"));
+            busline_tv_memo.setText((String) map.get("memo"));
             adapter.addAll((List<String>) map.get("up"));
             adapter.notifyDataSetChanged();
         } catch (InterruptedException e) {
